@@ -11,7 +11,7 @@ from .serializers import (
 # CUD의 경우는 작성자만 가능하도록 변경
 class JWTCookieIsOwnerOrReadOnlyMixin:
     def get_permissions(self):
-        if getattr(self, 'action', None) in ['create', 'update', 'partial_update', 'destroy']:
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
             return [JWTCookieIsOwnerorReadOnly()]
         return [AllowAny()]
 
@@ -44,4 +44,6 @@ class PlannerListCreateAPIView(JWTCookieIsOwnerOrReadOnlyMixin, generics.ListCre
 class PlannerDetailAPIView(JWTCookieIsOwnerOrReadOnlyMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = Planners.objects.all()
     serializer_class = PlannerSerializer
+    
+    #  'retrieve', 'update', 'destroy'  3가지 액션 지원
 
