@@ -1,17 +1,21 @@
 from django.db import models
 from place.models import Places
 from django.conf import settings
+from core.models import AreaModel
 
-class Planners(models.Model):
+class Planners(AreaModel, models.Model):
     name = models.CharField(max_length=255)
     start_date = models.DateField()
     end_date = models.DateField()
     public_flag = models.BooleanField(default=True) # 공개 여부 플래그 
-    area = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # 작성자 
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return f"{self.pk} - {self.name}"
+    
+    class Meta:
+        ordering = ['-created_at']
 
 class PeriodEvents(models.Model):
     planner = models.ForeignKey(Planners, related_name='period_events', on_delete=models.CASCADE)

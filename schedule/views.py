@@ -20,6 +20,13 @@ class PlannerViewSet(JWTCookieIsOwnerOrReadOnlyMixin, viewsets.ModelViewSet):
     queryset = Planners.objects.all()
     serializer_class = PlannerSerializer
     
+    def get_queryset(self):
+        queryset = Planners.objects.all()
+        name_query = self.request.query_params.get('name', None)
+        if name_query is not None:
+            queryset = queryset.filter(name__icontains=name_query)
+        return queryset
+    
 
 # PeriodEvent에 대한 CRUD 뷰
 class PeriodEventViewSet(JWTCookieIsOwnerOrReadOnlyMixin, viewsets.ModelViewSet):
