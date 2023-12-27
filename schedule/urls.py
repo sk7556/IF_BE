@@ -16,25 +16,3 @@ urlpatterns = [
     path('api/planner/detail/<int:pk>/', PlannerDetailAPIView.as_view(), name='planner-detail'),
     path('update-date-events/', update_date_events, name='update_date_events')
 ]
-
-'''
-Planner 
-api/planners/                   List 및 Create
-api/planners/<pk>/              Retrieve, Update, Destroy
-
-PeriodEvent         
-api/period-events/              List 및 Create
-api/period-events/<pk>/         Retrieve, Update, Destroy
-
-DateEvent  
-api/date-events/                List 및 Create
-api/date-events/<pk>/           Retrieve, Update, Destroy
-
-DateEventPlace ( 연결 ) 
-api/date-event-places/          List 및 Create
-api/date-event-places/<pk>/     Retrieve, Update, Destroy
-
-api/planner/list-create/
-api/planner/detail/<int:pk>/
-
-'''
